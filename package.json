@@ -1,6 +1,6 @@
 {
   "name": "@them-codes/either",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Functional exception handling",
   "main": "either.js",
   "types": "either.d.ts",
