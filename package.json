@@ -1,10 +1,13 @@
 {
   "name": "@them-codes/either",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Functional exception handling",
   "main": "either.js",
   "types": "either.d.ts",
-  "files": ["either.js", "either.d.ts"],
+  "files": [
+    "either.js",
+    "either.d.ts"
+  ],
   "devDependencies": {
     "standard-version": "^9.5.0"
   },
