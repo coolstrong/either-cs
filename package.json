@@ -1,5 +1,5 @@
 {
-  "name": "@them-codes/either-codes",
+  "name": "@them-codes/either",
   "version": "1.0.0",
   "description": "Functional exception handling",
   "main": "either.js",

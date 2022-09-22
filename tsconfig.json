@@ -10,5 +10,5 @@
   },
 
   "include": ["./either.ts"],
-  "exclude": ["./package.json", "./tsconfig.json", "./either.d.ts", "./either.js"]
+  "exclude": ["node_modules"]
 }
