@@ -1,0 +1,14 @@
+{
+  "name": "@them-codes/either-codes",
+  "version": "1.0.0",
+  "description": "Functional exception handling",
+  "main": "either.js",
+  "types": "either.d.ts",
+  "files": ["either.js", "either.d.ts"],
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  },
+  "scripts": {
+    "publish": "standard-version && git push --follow-tags && npm publish"
+  }
+}

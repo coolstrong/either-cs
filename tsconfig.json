@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  },
+
+  "include": ["./either.ts"],
+  "exclude": ["./package.json", "./tsconfig.json", "./either.d.ts", "./either.js"]
+}
