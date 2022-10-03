@@ -8,11 +8,7 @@
     "either.js",
     "either.d.ts"
   ],
-  "devDependencies": {
-    "standard-version": "^9.5.0"
-  },
+  "devDependencies": {},
   "repository": "https://github.com/them-codes/either.git",
-  "scripts": {
-    "publish": "standard-version && git push --follow-tags && npm publish"
-  }
+  "scripts": {}
 }

@@ -39,10 +39,10 @@ class Either {
         }
     }
     /**
-     * Make an either of promise - right represents resolved value, left - rejected value.
+     * Make an either of promise or async function - right represents resolved value, left - rejected value.
      */
     static promise(p) {
-        return p.then((this.right), (this.left));
+        return (typeof p === "function" ? p() : p).then((this.right), (this.left));
     }
     /**
      * Folds an either to a value.
@@ -87,6 +87,28 @@ class Either {
      */
     bimap(leftFn, rightFn) {
         return this.right !== null ? Either.right(rightFn(this.right)) : Either.left(leftFn(this.left));
+    }
+    /**
+     * Applies a side effect to the left value (if presents).
+     */
+    traceLeft(fn) {
+        if (this.left !== null)
+            fn(this.left);
+        return this;
+    }
+    /**
+     * Applies a side effect to the right value (if presents).
+     */
+    traceRight(fn) {
+        if (this.right !== null)
+            fn(this.right);
+        return this;
+    }
+    /**
+     * Applies side effects to both values.
+     */
+    trace(leftFn, rightFn) {
+        return this.traceLeft(leftFn).traceRight(rightFn);
     }
     toString() {
         return this.fold((right) => `Right(${right})`, (left) => `Left(${left})`);

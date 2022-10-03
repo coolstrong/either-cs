@@ -23,9 +23,9 @@ export default class Either<L, R> {
      */
     static try<R, L = any>(f: () => R): Either<L, R>;
     /**
-     * Make an either of promise - right represents resolved value, left - rejected value.
+     * Make an either of promise or async function - right represents resolved value, left - rejected value.
      */
-    static promise<R, L = any>(p: Promise<R>): Promise<Either<L, R>>;
+    static promise<R, L = any>(p: Promise<R> | (() => Promise<R>)): Promise<Either<L, R>>;
     /**
      * Folds an either to a value.
      */
@@ -56,5 +56,17 @@ export default class Either<L, R> {
      * Maps both values to new ones.
      */
     bimap<L2, R2>(leftFn: (left: L) => L2, rightFn: (right: R) => R2): Either<L2, R2>;
+    /**
+     * Applies a side effect to the left value (if presents).
+     */
+    traceLeft(fn: (left: L) => void): Either<L, R>;
+    /**
+     * Applies a side effect to the right value (if presents).
+     */
+    traceRight(fn: (right: R) => void): Either<L, R>;
+    /**
+     * Applies side effects to both values.
+     */
+    trace(leftFn: (left: L) => void, rightFn: (right: R) => void): Either<L, R>;
     toString(): string;
 }

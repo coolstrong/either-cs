@@ -44,10 +44,10 @@ export default class Either<L,R> {
     }
     
     /**
-     * Make an either of promise - right represents resolved value, left - rejected value.
+     * Make an either of promise or async function - right represents resolved value, left - rejected value.
      */
-    static promise<R, L = any>(p: Promise<R>) : Promise<Either<L, R>> {
-        return p.then(this.right<R, L>, this.left<L, R>);
+    static promise<R, L = any>(p: Promise<R> | (() => Promise<R>)) : Promise<Either<L, R>> {
+        return (typeof p === "function" ? p() : p).then(this.right<R, L>, this.left<L, R>);
     }
 
     /**
@@ -100,6 +100,34 @@ export default class Either<L,R> {
     bimap<L2, R2>(leftFn: (left: L) => L2, rightFn: (right: R) => R2) : Either<L2, R2> {
         return this.right !== null ? Either.right(rightFn(this.right!)) : Either.left(leftFn(this.left!));
     }
+
+    /**
+     * Applies a side effect to the left value (if presents).
+     */
+    traceLeft(fn: (left: L) => void) : Either<L, R> {
+        if (this.left !== null)
+            fn(this.left);
+        
+        return this;
+    }
+
+    /**
+     * Applies a side effect to the right value (if presents).
+     */
+    traceRight(fn: (right: R) => void) : Either<L, R> {
+        if (this.right !== null)
+            fn(this.right);
+
+        return this;
+    }
+
+    /**
+     * Applies side effects to both values.
+     */
+    trace(leftFn: (left: L) => void, rightFn: (right: R) => void) : Either<L, R> {
+        return this.traceLeft(leftFn).traceRight(rightFn);
+    }
+
 
     toString() : string {
         return this.fold(
